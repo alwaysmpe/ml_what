@@ -8,8 +8,135 @@ packages = [{include = "ml_what", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+pytest = "^8.1.1"
+ruff = "^0.3.4"
+pyright = "^1.1.355"
+pylama = "^8.4.1"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pylama]
+
+ignore = "E261,E0602,C901,W0611,F401"
+
+skip = "*.ipynb_checkpoints/*,"
+
+max_line_length = 160
+
+format = "pylint"
+
+[tool.pytest.ini_options]
+
+filterwarnings = [
+    "error",
+    "ignore:",
+    "ignore:datetime\\.datetime\\.utcfromtimestamp\\(\\) is deprecated:DeprecationWarning",
+]
+
+[tool.pyright]
+
+typeCheckingMode  = "strict"
+
+reportUnusedImport = false
+
+exclude = [
+    "**/.ipynb_checkpoints/*",
+    "**/.venv/",
+]
+
+ignore =  [
+    "**/.ipynb_checkpoints/*",
+    "**/.venv/",
+]
+
+[tool.ruff]
+
+line-length = 160
+
+indent-width = 4
+
+target-version = "py312"
+
+exclude = [
+    "**/.ipynb_checkpoints/*",
+    "**/.venv/",
+    "tests",
+]
+
+[tool.ruff.lint]
+
+preview = true
+select = ["ALL"]
+ignore = [
+    # # maybe enable
+    # "I001",
+    # "TCH001",
+    # "TCH002",
+    # "TCH003",
+    # "TD003",
+    # "SLF001",
+
+    # definitely kill
+    "CPY001",
+    "D203",
+    "D212",
+    "E261",
+    "D200",
+    "TD002",
+    "FIX001",
+    "FIX002",
+    "FIX003",
+    "FIX004",
+    "ANN101",
+    "ANN102",
+    "RET505",
+    "PD901",
+    "SIM108",
+
+    # # remove later
+    # "F401",
+    # "RUF100",
+    # "ERA001",
+    # "D101",
+    # "D102",
+    # "D103",
+    # "D105",
+    # "PGH003",
+    # "S101",
+    # "C901",
+    # "PLR0915",
+    # "RET504",
+    # undecided
+    # "D205",
+    # "D400",
+    # "D415",
+    # "D212",
+    # "FIX002",
+    # "RSE102",
+    # "TCH003",
+    # "TCH003",
+    # "TCH003",
+    # "TCH003",
+    # "TCH003",
+]
+
+[tool.ruff.lint.flake8-quotes]
+# Don't bother trying to avoid escapes.
+avoid-escape = false
+
+[tool.ruff.lint.isort]
+
+force-sort-within-sections = true
+
+[tool.ruff.format]
+
+quote-style = "double"
+
+indent-style = "space"
+
+skip-magic-trailing-comma = false
+
+line-ending = "auto"
